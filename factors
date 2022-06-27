@@ -1,25 +1,33 @@
 #!/usr/bin/python3
-""" My module for testing numbers and finding the factorization """
-import math
+"""Module that factorize as many numbers as possible
+ into a product of two smaller numbers."""
 from sys import argv
 
 
-def factor(number, test_num):
-    """ Finds the values to return once a number has been found
-    """
+def factorize(value):
+    """"print a simple descomposition of an integer > 1"""
+    i = 2
 
+    if value < 2:
+        return
+    print()
+    print(value, "<- value-bef")
+    while value % i:
+        i += 1
+    print("{:.0f}={:.0f}*{:.0f}".format(value, value / i, i))
+    print(value, "<- value-aft")
+    print()
 
-    print("{}={}*{}".format(number, (number // test_num), test_num))
+if len(argv) != 2:
+    exit()
 
+try:
+    with open(argv[1]) as file:
+        line = file.readline()
 
-with open(argv[1], mode="r", encoding="UTF-8") as f:
-    for line in f:
-        number = int(line)
-        if number % 2 == 0:
-            factor(number, 2)
-        else:
-            max_number_to_test = math.floor(math.sqrt(number))
-            for test_num in range(3, max_number_to_test + 1, 2):
-                if number % test_num == 0:
-                    factor(number, test_num)
-                    break
+        while line != "":
+            value = int(line.split('\n')[0])
+            factorize(value)
+            line = file.readline()
+except:
+    pass
